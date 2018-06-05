@@ -641,7 +641,11 @@ NSString * const KILabelLinkKey = @"link";
     
     if (touchedLink)
     {
-        self.selectedRange = [[touchedLink objectForKey:KILabelRangeKey] rangeValue];
+        NSRange range = [[touchedLink objectForKey:KILabelRangeKey] rangeValue];
+        NSString *touchedSubstring = [touchedLink objectForKey:KILabelLinkKey];
+        KILinkType linkType = (KILinkType)[[touchedLink objectForKey:KILabelLinkTypeKey] intValue];
+        
+        [self receivedActionForLinkType:linkType string:touchedSubstring range:range];
     }
     else
     {
@@ -675,11 +679,7 @@ NSString * const KILabelLinkKey = @"link";
     
     if (touchedLink)
     {
-        NSRange range = [[touchedLink objectForKey:KILabelRangeKey] rangeValue];
-        NSString *touchedSubstring = [touchedLink objectForKey:KILabelLinkKey];
-        KILinkType linkType = (KILinkType)[[touchedLink objectForKey:KILabelLinkTypeKey] intValue];
-        
-        [self receivedActionForLinkType:linkType string:touchedSubstring range:range];
+
     }
     else
     {
